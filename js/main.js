@@ -1,5 +1,5 @@
 
-const getRandomNum = function(from, to) {
+const getRandomNum = (from, to) => {
   if (from < to) {
     return Math.abs(Math.floor(Math.random() * (to - from + 1) + from));
   }
