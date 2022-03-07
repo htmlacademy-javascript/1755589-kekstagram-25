@@ -1,4 +1,4 @@
-const MESSAGEARRAY = [
+const messages = [
   'Всё отлично!',
   'В целом всё неплохо. Но не всё.',
   'Когда вы делаете фотографию, хорошо бы убирать палец из кадра. В конце концов это просто непрофессионально.',
@@ -6,7 +6,7 @@ const MESSAGEARRAY = [
   'Я поскользнулся на банановой кожуре и уронил фотоаппарат на кота и у меня получилась фотография лучше.',
   'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!'];
 
-const NAMES = [
+const names = [
   'Иван',
   'Хуан Себастьян',
   'Мария',
@@ -17,7 +17,7 @@ const NAMES = [
   'Вашингтон',
 ];
 
-const getRandomNum = function(from, to) {
+const getRandomNum = (from, to) => {
   if (from < to) {
     return Math.abs(Math.floor(Math.random() * (to - from + 1) + from));
   }
@@ -29,8 +29,6 @@ const getRandomNum = function(from, to) {
   }
 };
 
-const getIdNumber = (num) => num;
-
 const getMaxStringLength = function(string, length) {
   return string.length <= length;
 };
@@ -38,9 +36,11 @@ const getMaxStringLength = function(string, length) {
 const getRandomComment = (mesArray, quantity) => {
   const array = [];
   for (let i=0; i<mesArray.length; i++) {
-    array[i] = getMaxStringLength(mesArray[i], 140) ;
-    if (array.length === quantity) {
-      break;
+    if (getMaxStringLength(mesArray[i], 140)) {
+      array[i] =  mesArray[i];
+      if (array.length === quantity) {
+        break;
+      }
     }
   }
   return array;
@@ -50,15 +50,15 @@ const getAvatarNumber = (num) => `img/avatar-${num}.svg`;
 
 const getCommentObject = (idNum) => {
   const commentObject = {
-    id: getIdNumber(idNum),
+    id: idNum,
     avatar:getAvatarNumber(getRandomNum(1, 6)),
-    message: getRandomComment(MESSAGEARRAY , getRandomNum(0, MESSAGEARRAY.length-1)),
-    name: NAMES[getRandomNum(0, NAMES.length-1)]
+    message: getRandomComment(messages , getRandomNum(0, messages.length-1)),
+    name: names[getRandomNum(0, names.length-1)]
   };
   return commentObject;
 };
 
-const getCommentArray = (randomNum) => {
+const getComments = (randomNum) => {
   const objArray = [];
   objArray.length = randomNum;
   for (let i = 0; i < objArray.length; i++) {
@@ -67,20 +67,18 @@ const getCommentArray = (randomNum) => {
   return objArray;
 };
 
-const getPhotoNumber = (num) => `photos/${num}.jpg`;
-
 const createPhotosObject = (idNum, urlNum) => {
   const photoObject = {
-    id: getIdNumber(idNum),
-    url: getPhotoNumber(urlNum),
+    id: idNum,
+    url: `photos/${urlNum}.jpg`,
     description: 'Описание',
     likes: getRandomNum(15, 200),
-    comments:getCommentArray(getRandomNum(1, 25))
+    comments:getComments(getRandomNum(1, 25))
   };
   return photoObject;
 };
 
-const createPhotosArray = () => {
+const createPhotos = () => {
   const photosArray = [];
   for (let i = 0; i < 25; i++) {
     photosArray[i] = createPhotosObject(i+1, i+1);
@@ -88,4 +86,4 @@ const createPhotosArray = () => {
   return photosArray;
 };
 
-createPhotosArray();
+createPhotos();
