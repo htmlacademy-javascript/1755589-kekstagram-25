@@ -1,6 +1,4 @@
-import {getRandomNum, getAvatarNumber, getRandomComment} from './utils.js';
-
-const MESSAGES = [
+const messages = [
   'Всё отлично!',
   'В целом всё неплохо. Но не всё.',
   'Когда вы делаете фотографию, хорошо бы убирать палец из кадра. В конце концов это просто непрофессионально.',
@@ -9,7 +7,7 @@ const MESSAGES = [
   'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!'
 ];
 
-const NAMES = [
+const names = [
   'Иван',
   'Хуан Себастьян',
   'Мария',
@@ -20,12 +18,41 @@ const NAMES = [
   'Вашингтон',
 ];
 
+const getRandomNum = (from, to) => {
+  if (from < to) {
+    return Math.abs(Math.floor(Math.random() * (to - from + 1) + from));
+  }
+  else if (from > to) {
+    return Math.abs(Math.floor(Math.random() * (from - to + 1) + to));
+  }
+  else if (from === to){
+    return to;
+  }
+};
+
+const getMaxStringLength = (string, length) => string.length <= length;
+
+const getRandomComment = (mesArray, quantity) => {
+  const array = [];
+  for (let i=0; i<mesArray.length; i++) {
+    if (getMaxStringLength(mesArray[i], 140)) {
+      array[i] =  mesArray[i];
+      if (array.length === quantity) {
+        break;
+      }
+    }
+  }
+  return array;
+};
+
+const getAvatarNumber = (num) => `img/avatar-${num}.svg`;
+
 const getCommentObject = (idNum) => {
   const commentObject = {
     id: idNum,
     avatar:getAvatarNumber(getRandomNum(1, 6)),
-    message: getRandomComment(MESSAGES),
-    name: NAMES[getRandomNum(0, NAMES.length-1)]
+    message: getRandomComment(messages , getRandomNum(0, messages.length-1)),
+    name: names[getRandomNum(0, names.length-1)]
   };
   return commentObject;
 };
@@ -39,23 +66,4 @@ const getComments = (randomNum) => {
   return objArray;
 };
 
-const createPhotosObject = (idNum, urlNum) => {
-  const photoObject = {
-    id: idNum,
-    url: `photos/${urlNum}.jpg`,
-    description: 'Описание',
-    likes: getRandomNum(15, 200),
-    comments:getComments(getRandomNum(1, 25))
-  };
-  return photoObject;
-};
-
-const createPhotos = () => {
-  const photosArray = [];
-  for (let i = 0; i < 25; i++) {
-    photosArray[i] = createPhotosObject(i+1, i+1);
-  }
-  return photosArray;
-};
-
-export {createPhotos};
+export {getComments, getRandomNum};
