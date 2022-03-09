@@ -1,3 +1,3 @@
-import {createPhotos} from './data.js';
+import {createPhotos} from './mock.js';
 
 createPhotos();
