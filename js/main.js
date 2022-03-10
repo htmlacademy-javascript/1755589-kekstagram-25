@@ -1,3 +1,2 @@
-import {createPhotos} from './mock.js';
-
-console.log(createPhotos());
+import './mock.js';
+import './popup.js';
