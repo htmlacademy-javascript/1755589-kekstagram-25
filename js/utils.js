@@ -12,14 +12,4 @@ const getRandomNum = (from, to) => {
 
 const getMaxStringLength = (string, length) => string.length <= length;
 
-const getRandomComment = (mesArray) => {
-  const message = mesArray[getRandomNum(0, mesArray.length-1)];
-  if (getMaxStringLength(message, 140)) {
-    return message;
-  }
-  return message;
-};
-
-const getAvatarNumber = (num) => `img/avatar-${num}.svg`;
-
-export {getRandomNum, getRandomComment, getAvatarNumber};
+export {getRandomNum, getMaxStringLength};

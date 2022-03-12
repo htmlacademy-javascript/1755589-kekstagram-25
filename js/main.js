@@ -1,2 +1,2 @@
 import './mock.js';
-import './popup.js';
+import './mini.js';
