@@ -12,4 +12,7 @@ const getRandomNum = (from, to) => {
 
 const getMaxStringLength = (string, length) => string.length <= length;
 
-export {getRandomNum, getMaxStringLength};
+const isEscPressed = (evt) => evt.key === 'Escape' || evt.keyCode === 27;
+
+
+export {getRandomNum, getMaxStringLength, isEscPressed};

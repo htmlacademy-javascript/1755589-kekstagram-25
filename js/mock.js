@@ -28,17 +28,12 @@ const getRandomComment = (mesArray) => {
   return message;
 };
 
-const getAvatarNumber = (num) => `img/avatar-${num}.svg`;
-
-const getCommentObject = (idNum) => {
-  const commentObject = {
-    id: idNum,
-    avatar:getAvatarNumber(getRandomNum(1, 6)),
-    message: getRandomComment(MESSAGES),
-    name: NAMES[getRandomNum(0, NAMES.length-1)]
-  };
-  return commentObject;
-};
+const getCommentObject = (idNum) => ({
+  id: idNum,
+  avatar:`img/avatar-${getRandomNum(1, 6)}.svg`,
+  message: getRandomComment(MESSAGES),
+  name: NAMES[getRandomNum(0, NAMES.length-1)]
+});
 
 const getComments = (randomNum) => {
   const objArray = [];
