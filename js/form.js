@@ -1,44 +1,34 @@
 const pictures = document.querySelector('.pictures');
 const hashtag = pictures.querySelector('.text__hashtags');
+const formButton = pictures.querySelector('.img-upload__submit');
 
-const pristine = new Pristine(hashtag);
-hashtag.addEventListener('input', () => {
-  if (hashtag.value === /^#[A-Za-zА-Яа-яЁё0-9]{1-19}$/) {
-    pristine.validate();
-  }
-  if (hashtag.value[0] !== '#') {
-    hashtag.setCustomValidity('Хэштег должен начинаться с #');
-  }
-  else {
-    hashtag.setCustomValidity('');
-  }
-  hashtag.reportValidity();
-
-  for (let i = 1; i < hashtag.value.length; i++) {
-    if (hashtag.value[i] === /[A-Za-zА-Яа-яЁё0-9]/) {
-      hashtag.setCustomValidity('');
+const disableFormButton = () => (formButton.disabled = true);
+const getHashtagsArray = (string) => string.split(' ').map((item) => item.toLowerCase());
+const checkHashtagValue = (str, prstn) => {
+  let stringArray = [];
+  for (let i = 1; i < str.length; i++) {
+    if (str.includes('#', i) && str.length <=20) {
+      prstn.validate();
+      stringArray = str;
     }
     else {
-      hashtag.setCustomValidity('Хэштег может содержать только буквы и цифры');
+      disableFormButton();
     }
-    hashtag.reportValidity();
   }
-  if (hashtag.value.length < 20) {
-    hashtag.setCustomValidity('');
-  }
-  else {
-    hashtag.setCustomValidity('Хэштег не может содержать более 20 символов');
-  }
-  hashtag.reportValidity();
-});
+  return getHashtagsArray(stringArray);
+};
 
-const comment = pictures.querySelector('.text__description');
-comment.addEventListener('input', () => {
-  if (comment.value.length > 140) {
-    comment.setCustomValidity('Комментарий не может быть более 140 символов');
+const pristine = new Pristine(hashtag);
+
+hashtag.addEventListener('input', ()=> {
+  const str = hashtag.value;
+  const hashtagValue = checkHashtagValue(str, pristine);
+  const re = /^#[A-Za-zА-Яа-яЁё0-9]{1-19}$/;
+  const checkHashtagValidation = (array) => array.every((item) => re.test(item));
+  if (checkHashtagValidation(hashtagValue)) {
+    pristine.validate();
   }
   else {
-    comment.setCustomValidity('');
+    disableFormButton() ;
   }
-  comment.reportValidity();
 });
