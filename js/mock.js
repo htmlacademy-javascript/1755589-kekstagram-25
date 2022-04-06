@@ -1,4 +1,4 @@
-import {getRandomNum, getMaxStringLength} from './utils.js';
+import {getRandomNum, isStringLengthMax} from './utils.js';
 
 const MESSAGES = [
   'Всё отлично!',
@@ -22,7 +22,7 @@ const NAMES = [
 
 const getRandomComment = (mesArray) => {
   const message = mesArray[getRandomNum(0, mesArray.length-1)];
-  if (getMaxStringLength(message, 140)) {
+  if (isStringLengthMax(message, 140)) {
     return message;
   }
   return message;

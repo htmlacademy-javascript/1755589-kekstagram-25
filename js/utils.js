@@ -10,9 +10,11 @@ const getRandomNum = (from, to) => {
   }
 };
 
-const getMaxStringLength = (string, length) => string.length <= length;
+const isStringLengthMax = (string, length) => string.length <= length;
 
 const isEscPressed = (evt) => evt.key === 'Escape' || evt.keyCode === 27;
 
-
-export {getRandomNum, getMaxStringLength, isEscPressed};
+const stopPropagation = (evt) => {
+  evt.stopPropagation();
+};
+export {getRandomNum, isStringLengthMax, isEscPressed, stopPropagation};
