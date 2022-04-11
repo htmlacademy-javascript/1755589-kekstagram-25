@@ -1,34 +1,31 @@
+
 const pictures = document.querySelector('.pictures');
+const imgUploadForm = pictures.querySelector('.img-upload__form');
 const hashtag = pictures.querySelector('.text__hashtags');
-const formButton = pictures.querySelector('.img-upload__submit');
-
-const disableFormButton = () => (formButton.disabled = true);
+const comments = pictures.querySelector('.text__description');
+const pristine = new Pristine(imgUploadForm, {
+  classTo: 'img-upload__text',
+  errorTextParent: 'img-upload__text',
+  errorTextTag: 'div',
+  errorTextClass: 'img-upload__text-error',
+}, true);
+const re = /^#[A-Za-zА-Яа-яЁё0-9]{1,19}$/;
+const isHashtagEqualedRegex = (array) => array.every((item) => re.test(item));
 const getHashtagsArray = (string) => string.split(' ').map((item) => item.toLowerCase());
-const checkHashtagValue = (str, prstn) => {
-  let stringArray = [];
-  for (let i = 1; i < str.length; i++) {
-    if (str.includes('#', i) && str.length <=20) {
-      prstn.validate();
-      stringArray = str;
-    }
-    else {
-      disableFormButton();
-    }
-  }
-  return getHashtagsArray(stringArray);
+const isHashtagsSimilar = (array) => array.every((item) => array.indexOf(item) === array.lastIndexOf(item));
+const isHashtagArrayLength = (array) => array.length <= 5;
+const isCommentLength = (value) => value.length <= 140;
+
+const getHashtagValidation = (array) => {
+  const hashtagArray = getHashtagsArray(array);
+  return isHashtagEqualedRegex(hashtagArray) && isHashtagsSimilar(hashtagArray) && isHashtagArrayLength(hashtagArray);
 };
+const getCommentValidation = (comment) =>  isCommentLength(comment);
 
-const pristine = new Pristine(hashtag);
 
-hashtag.addEventListener('input', ()=> {
-  const str = hashtag.value;
-  const hashtagValue = checkHashtagValue(str, pristine);
-  const re = /^#[A-Za-zА-Яа-яЁё0-9]{1-19}$/;
-  const checkHashtagValidation = (array) => array.every((item) => re.test(item));
-  if (checkHashtagValidation(hashtagValue)) {
-    pristine.validate();
-  }
-  else {
-    disableFormButton() ;
-  }
+pristine.addValidator(hashtag, getHashtagValidation, 'Хэштег невалидный');
+pristine.addValidator(comments, getCommentValidation, 'Комментарий не может быть больше 140 символов');
+imgUploadForm.addEventListener('submit', (evt) => {
+  evt.preventDefault();
+  pristine.validate();
 });

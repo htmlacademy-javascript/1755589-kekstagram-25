@@ -1,8 +1,9 @@
-import {isEscPressed} from './utils.js';
+import {isEscPressed, stopPropagation} from './utils.js';
 
 const pictures = document.querySelector('.pictures');
 const uploadFile = pictures.querySelector('#upload-file');
 const uploadCancel = pictures.querySelector('#upload-cancel');
+const imgUploadForm = pictures.querySelector('.img-upload__form');
 
 uploadFile.addEventListener('change', () => {
   const uploadPreview = pictures.querySelector('.img-upload__preview').children;
@@ -11,12 +12,14 @@ uploadFile.addEventListener('change', () => {
   if (userPhoto) {
     pictures.querySelector('.img-upload__overlay').classList.remove('hidden');
   }
+  imgUploadForm.addEventListener('keydown', stopPropagation);
   document.getElementsByTagName('body')[0].classList.add('modal-open');
 });
 
 
 uploadCancel.addEventListener('click', () => {
   pictures.querySelector('.img-upload__overlay').classList.add('hidden');
+  imgUploadForm.removeEventListener('keydown', stopPropagation);
   document.getElementsByTagName('body')[0].classList.remove('modal-open');
 });
 
