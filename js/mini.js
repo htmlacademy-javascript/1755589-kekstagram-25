@@ -1,4 +1,4 @@
-import './fullSize.js';
+import './full-size.js';
 import {createPhotos} from './mock.js';
 
 const usersPictures = createPhotos();
