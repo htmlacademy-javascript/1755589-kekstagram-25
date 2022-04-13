@@ -38,51 +38,6 @@ const renderPopup = (data) => {
     //getCommentsCount();
   };
   onUploadButtonClick();
-  /*const userComments = data.comments.slice(0, 5);
-  const comment = bigPicture.querySelector('.social__comments').children;
-  const socialComments = bigPicture.querySelector('.social__comments');
-  const removeElement = () => {
-    for (let i = 0; i<comment.length; i++) {
-      socialComments.removeChild(comment[i]);
-    }
-  };
-  removeElement(comment);
-  removeElement(comment);
-
-  const commentFragment = document.createDocumentFragment();
-  const setCommentElements = () => {
-    const li = document.createElement('li');
-    li.classList.add('social__comment');
-    const img = document.createElement('img');
-    li.appendChild(img);
-    img.classList.add('social__picture');
-    const p = document.createElement('p');
-    li.appendChild(p);
-    p.classList.add('social__text');
-    img.setAttribute('src', 'src');
-    img.setAttribute('alt', 'alt');
-    commentFragment.appendChild(li);
-
-    return commentFragment;
-  };
-
-  for (let j = 0; j<userComments.length; j++) {
-    socialComments.appendChild(setCommentElements());
-    comment[j].querySelector('.social__picture').src = userComments[j].avatar;
-    comment[j].querySelector('.social__picture').alt = userComments[j].name;
-    comment[j].querySelector('.social__text').textContent = userComments[j].message;
-  }
-  const socialCommentButton = bigPicture.querySelector('.social__comments-loader');
-  socialCommentButton.addEventListener('click', () => {
-    const userCommentsAddOn = data.comments.slice(0, 10);
-    for (let j = 0; j<userCommentsAddOn.length; j++) {
-      socialComments.appendChild(setCommentElements());
-      comment[j].querySelector('.social__picture').src = userCommentsAddOn[j].avatar;
-      comment[j].querySelector('.social__picture').alt = userCommentsAddOn[j].name;
-      comment[j].querySelector('.social__text').textContent = userCommentsAddOn[j].message;
-    }
-  });
-  */
 };
 
 
