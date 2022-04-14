@@ -5,6 +5,7 @@ const COMMENTS_LIMIT = 5;
 const userPicture = createPhotos();
 const pictureContainer = document.querySelector('.pictures');
 const bigPicture = document.querySelector('.big-picture');
+
 const renderPopup = (data) => {
   bigPicture.classList.remove('hidden');
   bigPicture.querySelector('.big-picture__img').children[0].src = data.url;
@@ -13,6 +14,8 @@ const renderPopup = (data) => {
   bigPicture.querySelector('.social__header').querySelector('.social__caption').textContent = data.description;
 
   const socialCommentButton = bigPicture.querySelector('.social__comments-loader');
+  //const comment = bigPicture.querySelector('.social__comments').children;
+
   const toHideLoadButton = () => {
     socialCommentButton.classList.add('hidden');
   };
@@ -33,15 +36,17 @@ const renderPopup = (data) => {
     const commentsArray = data.comments;
     if (commentsArray.length <= COMMENTS_LIMIT) {
       toHideLoadButton();
+      console.log(commentsArray);
     }
     renderComments(commentsArray.splice(0, COMMENTS_LIMIT));
     //getCommentsCount();
   };
   onUploadButtonClick();
+
 };
 
 
-const getTargenData = (evt) => {
+const getTargetData = (evt) => {
   const targetId = evt.target.getAttribute('data-id');
   const targetData = targetId && userPicture.find((i) => i.id === parseInt(targetId, 10));
   const data = targetData && renderPopup(targetData);
@@ -49,7 +54,7 @@ const getTargenData = (evt) => {
 };
 
 pictureContainer.addEventListener('click', (evt) => {
-  getTargenData(evt);
+  getTargetData(evt);
 });
 
 const cancelBigPicture = bigPicture.querySelector('.cancel');
