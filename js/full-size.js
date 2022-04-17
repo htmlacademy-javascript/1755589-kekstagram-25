@@ -13,16 +13,17 @@ const renderPopup = (data) => {
   bigPicture.querySelector('.social__header').querySelector('.social__caption').textContent = data.description;
 
   const socialCommentButton = bigPicture.querySelector('.social__comments-loader');
-  //const comment = bigPicture.querySelector('.social__comments').children;
 
   const toHideLoadButton = () => {
     socialCommentButton.classList.add('hidden');
   };
 
-  /*const renderComments = (item) => {
+  const socialComments = bigPicture.querySelector('.social__comments');
+  const commentsArray = document.querySelectorAll('.social__text');
+
+  const renderComments = (item) => {
     item.forEach(({ avatar, message, name }) => {
       const popupCommentClone = document.querySelector('.social__comment');
-      const socialComments = bigPicture.querySelector('.social__comments');
       const popupComment = popupCommentClone.cloneNode(true);
       const author = popupComment.querySelector('.social__picture');
       const commentText = popupComment.querySelector('.social__text');
@@ -30,28 +31,18 @@ const renderPopup = (data) => {
       author.alt = name;
       commentText.textContent = message;
       socialComments.appendChild(popupComment);
-    });*/
-
-    const renderComments = (item) => {
-      item.forEach(({ avatar, message, name }) => {
-        const popupComment = popupCommentClone.cloneNode(true);
-        const author = popupComment.querySelector('.social__picture');
-        const commentText = popupComment.querySelector('.social__text');
-        author.src = avatar;
-        author.alt = name;
-        commentText.textContent = message;
-        popupComments.appendChild(popupComment);
-      });
-    };
-
-    const onUploadButtonClick = () => {
-      if (commentsArray.length <= COMMENTS_LIMIT) {
-        toHideLoadButton();
-      }
-      renderComments(commentsArray.splice(0, COMMENTS_LIMIT));
-      getCommentsCount();
-    };
+    });
   };
+
+  const onUploadButtonClick = () => {
+    if (commentsArray.length <= COMMENTS_LIMIT) {
+      toHideLoadButton();
+    }
+    renderComments(commentsArray.splice(0, COMMENTS_LIMIT));
+    //getCommentsCount();
+  };
+  onUploadButtonClick();
+};
 
 
 let collection = [];

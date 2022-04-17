@@ -6,13 +6,13 @@ const setDataFilters = (data) => {
   collection = data;
 };
 
-const filterDefault = document.querySelector('.filter-default');
+const filterDefault = document.querySelector('#filter-default');
 
 filterDefault.addEventListener('click', ()=> {
   toRenderPhotos(collection);
 });
 
-const filterDiscussed = document.querySelector('.filter-discussed');
+const filterDiscussed = document.querySelector('#filter-discussed');
 
 const getMaxCommentsLength = () => {
   let array = [];
