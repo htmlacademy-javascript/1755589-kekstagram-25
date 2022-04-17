@@ -1,11 +1,9 @@
 import './full-size.js';
-import {getData} from './api.js';
-import { showErrorMessage } from './utils.js';
 
 const template = document.querySelector('#picture').content;
 const pictures = document.querySelector('.pictures');
 
-const toRenderPhotos = (photos) => {
+export const toRenderPhotos = (photos) => {
   const pictureFragment = document.createDocumentFragment();
   photos.forEach((element) => {
     const userPicture = template.cloneNode(true);
@@ -17,9 +15,3 @@ const toRenderPhotos = (photos) => {
   });
   pictures.appendChild(pictureFragment);
 };
-
-getData(
-  (photos) => toRenderPhotos(photos),
-  () => showErrorMessage('Ой, что-то сломалось. Сейчас мы все исправим.')
-);
-

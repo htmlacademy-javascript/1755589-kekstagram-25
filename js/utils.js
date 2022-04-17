@@ -46,6 +46,17 @@ const showSuccessMessage = (message) => {
   return success;
 };
 
+const removeSuccessMessage = function(success) {
+  window.addEventListener('keydown', (evt) => {
+    if (isEscPressed(evt)) {
+      success.remove();
+    }
+  });
+  window.addEventListener('click', ()=> {
+    success.remove();
+  });
+};
+
 const showPostErrorMessage = (message) => {
   const templateMessage = document.querySelector('#error').content;
   const messageError = templateMessage.cloneNode(true);
@@ -54,4 +65,11 @@ const showPostErrorMessage = (message) => {
   document.body.append(err);
   return err;
 };
-export {getRandomNum, isStringLengthMax, isEscPressed, showErrorMessage, showPostErrorMessage, showSuccessMessage};
+
+const removeErrorMessage = function (error) {
+  const errorButton = document.querySelector('.error__button');
+  errorButton.addEventListener('click', () => {
+    error.remove();
+  });
+};
+export {getRandomNum, isStringLengthMax, isEscPressed, showErrorMessage, showPostErrorMessage, removeErrorMessage, showSuccessMessage, removeSuccessMessage};

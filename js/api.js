@@ -1,14 +1,40 @@
 
-const getData = (onSuccess, onFail) => {
-  fetch('https://25.javascript.pages.academy/kekstagram/data')
+const getData = (url, onSuccess, onFail) => {
+  fetch(
+    url
+  )
     .then((response) => {
       if (response.ok) {
-        response.json()
-          .then((photos) => {
-            onSuccess(photos);
-          });
+        return response.json();
+      } else {
+        onFail();
       }
-      else {
+    })
+    .then((data) => {
+      onSuccess(data);
+    })
+    .catch(() => {
+      onFail();
+    });
+};
+
+const sendData = (onSuccess, body) => {
+  const postData = fetch(
+    'https://25.javascript.pages.academy/kekstagram',
+    {
+      method: 'POST',
+      body: body,
+    },
+  )
+    .then(() => onSuccess());
+  return postData;
+};
+
+const sendingDataError = (onFail) => {
+  const data = sendData();
+  data
+    .then((response) => {
+      if(response.ok === false) {
         onFail();
       }
     })
@@ -17,24 +43,4 @@ const getData = (onSuccess, onFail) => {
     });
 };
 
-const sendData = (onSuccess, onFail, body) => {
-  fetch(
-    'https://25.javascript.pages.academy/kekstagram',
-    {
-      method: 'POST',
-      body: body,
-    },
-  )
-    .then(() => onSuccess())
-    .then((response) => {
-      if (response.ok) {
-        onSuccess();
-      } else {
-        onFail();
-      }
-    })
-    .catch(() => {
-      onFail();
-    });
-};
-export {getData, sendData};
+export {getData, sendData, sendingDataError};

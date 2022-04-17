@@ -1,3 +1,4 @@
+
 import {getRandomNum, isStringLengthMax} from './utils.js';
 
 const MESSAGES = [
