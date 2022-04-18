@@ -1,11 +1,9 @@
-import './mock.js';
 import {toRenderPhotos} from './mini.js';
 import './upload.js';
 import './form.js';
 import './modify-pic.js';
 import {getData} from './api.js';
 import {setData} from './full-size.js';
-import { showErrorMessage } from './utils.js';
 import {setDataFilters} from './filter-photos.js';
 
 // URL сервера
@@ -20,6 +18,5 @@ getData(
     setData(data);
     setDataFilters(data);
   },
-  showErrorMessage('Ой, что-то сломалось. Сейчас исправим')
 );
 

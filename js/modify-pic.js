@@ -1,3 +1,4 @@
+
 const setSmaller = document.querySelector('.scale__control--smaller');
 const setBigger = document.querySelector('.scale__control--bigger');
 const scaleValue = document.querySelector('.scale__control--value');
@@ -37,7 +38,6 @@ noUiSlider.create(sliderElement, {
   step: 1,
   connect: 'lower',
 });
-
 
 effectValue.value = 100;
 sliderElement.noUiSlider.on('update', () => {
@@ -114,10 +114,11 @@ sliderElement.noUiSlider.on('update', () => {
   });
 });
 
-effectButton.forEach((element) => {
-  element.addEventListener('click', (evt) => {
-    if(  element.value === evt.target.value) {
-      uploadPreview.classList.add(`effects__preview--${  evt.target.value}`);
-    }
-  });
-});
+const onEffectsListClick = (evt) => {
+  const currentPicture = document.querySelector('.img-upload__preview').getElementsByTagName('img')[0];
+  currentPicture.className = `effects__preview--${evt.target.value}`;
+};
+
+const effectsList = document.querySelector('.effects__list');
+effectsList.addEventListener('change', onEffectsListClick);
+

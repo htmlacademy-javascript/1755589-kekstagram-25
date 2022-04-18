@@ -1,3 +1,4 @@
+import { showErrorMessage } from './utils.js';
 
 const getData = (url, onSuccess, onFail) => {
   fetch(
@@ -7,14 +8,14 @@ const getData = (url, onSuccess, onFail) => {
       if (response.ok) {
         return response.json();
       } else {
-        onFail();
+        onFail(showErrorMessage('Ой, что-то сломалось. Сейчас мы все исправим'));
       }
     })
     .then((data) => {
       onSuccess(data);
     })
     .catch(() => {
-      onFail();
+      onFail(showErrorMessage('Ой, что-то сломалось. Сейчас мы все исправим'));
     });
 };
 
