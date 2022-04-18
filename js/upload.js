@@ -1,9 +1,13 @@
-import {isEscPressed, stopPropagation} from './utils.js';
+import {isEscPressed} from './utils.js';
 
 const pictures = document.querySelector('.pictures');
 const uploadFile = pictures.querySelector('#upload-file');
 const uploadCancel = pictures.querySelector('#upload-cancel');
 const imgUploadForm = pictures.querySelector('.img-upload__form');
+
+const stopPropagation = (evt) => {
+  evt.stopPropagation();
+};
 
 uploadFile.addEventListener('change', () => {
   const uploadPreview = pictures.querySelector('.img-upload__preview').children;

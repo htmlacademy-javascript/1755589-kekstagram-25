@@ -1,3 +1,5 @@
+import { sendData, sendingDataError } from './api.js';
+import { showPostErrorMessage, removeErrorMessage, showSuccessMessage, removeSuccessMessage } from './utils.js';
 
 const pictures = document.querySelector('.pictures');
 const imgUploadForm = pictures.querySelector('.img-upload__form');
@@ -25,7 +27,41 @@ const getCommentValidation = (comment) =>  isCommentLength(comment);
 
 pristine.addValidator(hashtag, getHashtagValidation, 'Хэштег невалидный');
 pristine.addValidator(comments, getCommentValidation, 'Комментарий не может быть больше 140 символов');
-imgUploadForm.addEventListener('submit', (evt) => {
-  evt.preventDefault();
-  pristine.validate();
-});
+
+const closeUserForm = () => {
+  document.querySelector('.img-upload__overlay').classList.add('hidden');
+};
+
+const setValuesToDefault = () => {
+  hashtag.value = '';
+  //масштаб возвращается к 100%;
+  //эффект сбрасывается на «Оригинал»;
+  //поле загрузки фотографии, стилизованное под букву «О» в логотипе, очищается.
+};
+
+const setUserFormPost = (onSuccess) => {
+  imgUploadForm.addEventListener('submit', (evt) => {
+    evt.preventDefault();
+    const isValid = pristine.validate();
+    if (isValid) {
+      const success = showSuccessMessage('Изображение успешно загружено');
+      setValuesToDefault();
+      sendData(
+        () => onSuccess(),
+        new FormData(evt.target)
+      );
+      document.body.addEventListener('click', () => {
+        removeSuccessMessage(success);
+      });
+    }
+    else {
+      const error = showPostErrorMessage('Упс, что-то пошло не так...');
+      sendingDataError(error);
+      document.body.addEventListener('click', () => {
+        removeErrorMessage(error);
+      });
+    }
+  });
+};
+
+setUserFormPost(closeUserForm);
