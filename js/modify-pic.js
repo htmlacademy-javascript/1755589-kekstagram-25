@@ -4,6 +4,7 @@ const setBigger = document.querySelector('.scale__control--bigger');
 const scaleValue = document.querySelector('.scale__control--value');
 const uploadPreview = document.querySelector('.img-upload__preview');
 
+
 scaleValue.value = '100%';
 let currentStep = 100;
 const SCALE_CONTROL_STEP = 25;
@@ -28,6 +29,9 @@ setBigger.addEventListener('click', onScaleControlsClick);
 const effectButton = document.querySelectorAll('.effects__radio');
 const sliderElement = document.querySelector('.effect-level__slider');
 const effectValue = document.querySelector('.effect-level__value');
+const effectsList = document.querySelector('.effects__list');
+
+effectValue.value = 100;
 
 noUiSlider.create(sliderElement, {
   range: {
@@ -39,11 +43,18 @@ noUiSlider.create(sliderElement, {
   connect: 'lower',
 });
 
-effectValue.value = 100;
-sliderElement.noUiSlider.on('update', () => {
+
+// не забыть про метод .set()
+
+//const onPictureEffectChange = () => {
+  sliderElement.noUiSlider.on('update', () => {
   effectValue.value = sliderElement.noUiSlider.get();
+  console.log('начальное', effectValue.value);
+
   effectButton.forEach((element) => {
-    element.addEventListener('click', (evt) => {
+    element.addEventListener('click', () => {
+      //effectValue.value = element.value;
+      //console.log('конечное', effectValue.value);
       if(element.value === 'chrome') {
         sliderElement.noUiSlider.updateOptions({
           range: {
@@ -53,7 +64,7 @@ sliderElement.noUiSlider.on('update', () => {
           start: 1,
           step: 0.1,
         });
-        uploadPreview.style.filter = `grayscale(${ evt.target.value  })`;
+        uploadPreview.style.filter = `grayscale(${ effectValue.value  })`;
       }
       else if (element.value === 'sepia') {
         sliderElement.noUiSlider.updateOptions({
@@ -64,7 +75,7 @@ sliderElement.noUiSlider.on('update', () => {
           start: 1,
           step: 0.1,
         });
-        uploadPreview.style.filter = `sepia(${ evt.target.value  })`;
+        uploadPreview.style.filter = `sepia(${ effectValue.value  })`;
       }
       else if (element.value === 'marvin') {
         sliderElement.noUiSlider.updateOptions({
@@ -75,7 +86,7 @@ sliderElement.noUiSlider.on('update', () => {
           start: 100,
           step: 1,
         });
-        uploadPreview.style.filter = `invert(${ evt.target.value}%)`;
+        uploadPreview.style.filter = `invert(${ effectValue.value}%)`;
       }
       else if (element.value === 'phobos') {
         sliderElement.noUiSlider.updateOptions({
@@ -86,7 +97,7 @@ sliderElement.noUiSlider.on('update', () => {
           start: 3,
           step: 0.1,
         });
-        uploadPreview.style.filter = `blur(${ evt.target.value}px)`;
+        uploadPreview.style.filter = `blur(${ effectValue.value}px)`;
       }
       else if (element.value === 'heat') {
         sliderElement.noUiSlider.updateOptions({
@@ -97,7 +108,7 @@ sliderElement.noUiSlider.on('update', () => {
           start: 3,
           step: 0.1,
         });
-        uploadPreview.style.filter = `brightness(${ evt.target.value})`;
+        uploadPreview.style.filter = `brightness(${ effectValue.value})`;
       }
       else {
         noUiSlider.create(sliderElement, {
@@ -113,12 +124,15 @@ sliderElement.noUiSlider.on('update', () => {
     });
   });
 });
+//};
+
+//effectsList.addEventListener('change', onPictureEffectChange);
+
 
 const onEffectsListClick = (evt) => {
   const currentPicture = document.querySelector('.img-upload__preview').getElementsByTagName('img')[0];
   currentPicture.className = `effects__preview--${evt.target.value}`;
 };
 
-const effectsList = document.querySelector('.effects__list');
-effectsList.addEventListener('change', onEffectsListClick);
 
+effectsList.addEventListener('change', onEffectsListClick);
