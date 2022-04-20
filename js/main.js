@@ -6,11 +6,9 @@ import {getData} from './api.js';
 import {setData} from './full-size.js';
 import {setDataFilters} from './filter-photos.js';
 
-// URL сервера
 const URL = 'https://25.javascript.pages.academy/kekstagram/data';
 
 
-// Функции добавления фото на сайт и рендера большого фото, а также фильтр используют данные полученные с сервера
 getData(
   URL,
   (data) => {

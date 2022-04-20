@@ -5,12 +5,14 @@ const pictures = document.querySelector('.pictures');
 const imgUploadForm = pictures.querySelector('.img-upload__form');
 const hashtag = pictures.querySelector('.text__hashtags');
 const comments = pictures.querySelector('.text__description');
+
 const pristine = new Pristine(imgUploadForm, {
   classTo: 'img-upload__text',
   errorTextParent: 'img-upload__text',
   errorTextTag: 'div',
   errorTextClass: 'img-upload__text-error',
 }, true);
+
 const re = /^#[A-Za-zА-Яа-яЁё0-9]{1,19}$/;
 const isHashtagEqualedRegex = (array) => array.every((item) => re.test(item));
 const getHashtagsArray = (string) => string.split(' ').map((item) => item.toLowerCase());
@@ -22,8 +24,8 @@ const getHashtagValidation = (array) => {
   const hashtagArray = getHashtagsArray(array);
   return isHashtagEqualedRegex(hashtagArray) && isHashtagsSimilar(hashtagArray) && isHashtagArrayLength(hashtagArray);
 };
-const getCommentValidation = (comment) =>  isCommentLength(comment);
 
+const getCommentValidation = (comment) =>  isCommentLength(comment);
 
 pristine.addValidator(hashtag, getHashtagValidation, 'Хэштег невалидный');
 pristine.addValidator(comments, getCommentValidation, 'Комментарий не может быть больше 140 символов');
